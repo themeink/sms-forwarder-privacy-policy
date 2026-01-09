@@ -73,6 +73,14 @@
             font-weight: 600;
         }
         
+        h4 {
+            color: #34495e;
+            font-size: 1.1em;
+            margin-top: 20px;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+        
         p {
             margin-bottom: 15px;
             text-align: justify;
@@ -133,6 +141,13 @@
         .info-box {
             background-color: #e8f0fe;
             border-left: 4px solid #1a73e8;
+            padding: 15px;
+            margin: 20px 0;
+        }
+        
+        .success-box {
+            background-color: #d4edda;
+            border-left: 4px solid #28a745;
             padding: 15px;
             margin: 20px 0;
         }
@@ -202,7 +217,7 @@
                 <p><strong>App Name:</strong> SMS Forwarder</p>
             </div>
             <div class="last-updated">
-                <strong>Last Updated:</strong> December 31, 2025
+                <strong>Last Updated:</strong> January 9, 2026
             </div>
         </header>
 
@@ -262,6 +277,27 @@
                 <li><strong>Why we collect it:</strong> To maintain your personalized app experience and preferences</li>
                 <li><strong>How we use it:</strong> Stored locally on your device</li>
             </ul>
+
+            <h3>2.7 Backup Data</h3>
+            <ul>
+                <li><strong>What we collect:</strong> When you use the backup feature, SMS Forwarder creates a local backup file containing your rule configurations and app settings</li>
+                <li><strong>Why we collect it:</strong> To allow you to restore your settings and rules on the same device or transfer them to another device</li>
+                <li><strong>How we use it:</strong> The backup file is stored locally on your device's storage (typically in the Downloads folder or location you select). Backup files are in JSON format and remain on your device—they are never transmitted to our servers or any third party</li>
+            </ul>
+
+            <h3>2.8 Purchase Verification Data</h3>
+            <ul>
+                <li><strong>What we collect:</strong> When you make an in-app purchase (Premium subscription), we collect purchase tokens provided by Google Play</li>
+                <li><strong>Information transmitted to our server:</strong>
+                    <ul>
+                        <li>Purchase token (unique identifier from Google Play)</li>
+                        <li>Product ID (subscription type identifier)</li>
+                        <li>Package name (app identifier)</li>
+                    </ul>
+                </li>
+                <li><strong>Why we collect it:</strong> To verify your purchase with Google Play's servers and prevent unauthorized access to premium features</li>
+                <li><strong>How we use it:</strong> This information is sent to our secure verification server for real-time validation only. We do not store purchase tokens permanently, and no personally identifiable information is collected during this process</li>
+            </ul>
         </div>
 
         <div class="section">
@@ -273,6 +309,9 @@
                 <li><strong>Activity Logging:</strong> Maintaining forwarding history with delivery status for your reference</li>
                 <li><strong>Statistics:</strong> Providing dashboard metrics (total forwarded, success rate, failed count)</li>
                 <li><strong>App Functionality:</strong> Executing dual SIM detection, roaming control, and message template customization</li>
+                <li><strong>Backup & Restore:</strong> Creating local backup files for your rule configurations and settings</li>
+                <li><strong>Purchase Validation:</strong> Verifying premium subscriptions with Google Play to enable premium features</li>
+                <li><strong>Crash Reporting:</strong> Collecting anonymous crash data to identify and fix bugs</li>
             </ul>
         </div>
 
@@ -285,63 +324,156 @@
             </div>
             <p>Rule configurations, app settings, and logs are stored in your device's local storage using Android's secure storage mechanisms.</p>
 
-            <h3>4.2 Security Measures</h3>
+            <h3>4.2 Backup File Security</h3>
+            <p>Backup files created by the app contain your rule configurations and settings. These files are stored in plain text JSON format on your device. We recommend:</p>
+            <ul>
+                <li>Storing backup files in a secure location</li>
+                <li>Not sharing backup files with untrusted parties</li>
+                <li>Deleting backup files when no longer needed</li>
+                <li>Being aware that backup files can be read by anyone with access to your device storage</li>
+            </ul>
+
+            <h3>4.3 Network Communications</h3>
+            <p>The app makes network requests only for:</p>
+            <ul>
+                <li><strong>Email forwarding:</strong> Via Gmail API (when configured by you)</li>
+                <li><strong>Purchase verification:</strong> Validating premium subscriptions with our secure server</li>
+                <li><strong>Crash reporting:</strong> Sending anonymous crash data to Firebase Crashlytics</li>
+            </ul>
+            <p>All network communications use industry-standard HTTPS encryption.</p>
+
+            <h3>4.4 Security Measures</h3>
             <ul>
                 <li>The app requests only necessary permissions required for its core functionality</li>
                 <li>Data transmission for email forwarding uses secure protocols (TLS/SSL)</li>
                 <li>SMS forwarding uses your device's standard SMS infrastructure</li>
-                <li>No analytics or tracking SDKs are integrated into the app</li>
+                <li>Purchase verification uses encrypted HTTPS connections</li>
+                <li>No behavioral analytics or tracking SDKs are integrated into the app</li>
             </ul>
         </div>
 
         <div class="section">
-            <h2>5. Data Sharing and Third-Party Disclosure</h2>
+            <h2>5. Third-Party Services</h2>
             
-            <h3>5.1 We Do Not Share Your Data</h3>
+            <h3>5.1 Google Play Billing</h3>
+            <p>SMS Forwarder uses Google Play's In-App Billing service for premium subscriptions. Google Play may collect payment information and purchase history according to Google's Privacy Policy. We do not have access to your payment card details or banking information.</p>
+            <p><strong>Google Play Privacy Policy:</strong> <a href="https://policies.google.com/privacy" target="_blank">https://policies.google.com/privacy</a></p>
+
+            <h3>5.2 Purchase Verification Server</h3>
+            <p>We operate a secure verification server to validate in-app purchases with Google Play's servers. This server:</p>
+            <ul>
+                <li>Validates purchase tokens with Google Play in real-time</li>
+                <li>Does not store any personally identifiable information</li>
+                <li>Does not access or store SMS content</li>
+                <li>Does not retain purchase tokens permanently</li>
+                <li>Uses HTTPS encryption for all communications</li>
+                <li>Only processes purchase verification requests</li>
+            </ul>
+
+            <h3>5.3 Firebase Crashlytics</h3>
+            <p>We use Firebase Crashlytics to automatically collect crash reports when the app encounters errors. This helps us improve app stability and fix bugs.</p>
+            
+            <h4>Information Collected by Crashlytics:</h4>
+            <ul>
+                <li><strong>Device information:</strong> Device model and manufacturer (e.g., "Samsung Galaxy S23")</li>
+                <li><strong>Operating system:</strong> Android version (e.g., "Android 14")</li>
+                <li><strong>App version:</strong> Version of SMS Forwarder installed (e.g., "0.0.5")</li>
+                <li><strong>Crash data:</strong> Technical stack traces and error logs</li>
+                <li><strong>Timestamp:</strong> Date and time when crashes occurred</li>
+            </ul>
+
+            <h4>What Crashlytics DOES NOT Collect:</h4>
+            <ul>
+                <li>❌ No user IDs or account identifiers</li>
+                <li>❌ No personally identifiable information</li>
+                <li>❌ No SMS message content</li>
+                <li>❌ No contact information</li>
+                <li>❌ No email addresses or phone numbers</li>
+                <li>❌ No usage analytics or behavior tracking</li>
+                <li>❌ No screen navigation data</li>
+            </ul>
+
+            <div class="success-box">
+                <strong>Privacy Note:</strong> Crash data is completely anonymous and cannot be linked to you as an individual. This data collection is necessary for app functionality and falls under legitimate interest under GDPR. No user consent is required for anonymous crash reporting.
+            </div>
+
+            <p><strong>Data Retention:</strong> Crash data is automatically deleted after 90 days from Firebase servers.</p>
+            <p><strong>Firebase Privacy Policy:</strong> <a href="https://firebase.google.com/support/privacy" target="_blank">https://firebase.google.com/support/privacy</a></p>
+
+            <h3>5.4 Gmail API (Optional)</h3>
+            <p>If you configure email forwarding, the app uses Gmail API to send emails on your behalf. Your Gmail credentials and email data are handled according to Google's privacy policy. We do not store your Gmail credentials or access your emails beyond the forwarding functionality you explicitly configure.</p>
+
+            <h3>5.5 No Analytics or Advertising</h3>
+            <ul>
+                <li>We do not integrate any third-party analytics services (other than Crashlytics for crash reporting)</li>
+                <li>We do not display advertisements</li>
+                <li>We do not track your usage, behavior, or app navigation</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>6. Data Sharing and Third-Party Disclosure</h2>
+            
+            <h3>6.1 We Do Not Share Your Data</h3>
             <div class="highlight-box">
                 <strong>SMS Forwarder does not share, sell, or transmit your personal information to any third parties,</strong> with the following exceptions:
             </div>
 
-            <h3>5.2 User-Initiated Forwarding</h3>
+            <h3>6.2 User-Initiated Forwarding</h3>
             <ul>
                 <li>When you configure SMS forwarding to email addresses or phone numbers, messages are sent to those destinations <strong>as per your explicit instructions</strong></li>
-                <li>Email forwarding uses standard SMTP protocols and may pass through email service providers (e.g., Gmail, Outlook) based on your configured email addresses</li>
+                <li>Email forwarding uses standard Gmail API and may pass through Google's email infrastructure based on your configured email addresses</li>
                 <li>SMS forwarding uses your mobile carrier's SMS infrastructure</li>
             </ul>
 
-            <h3>5.3 Payment Processing (Premium Features)</h3>
+            <h3>6.3 Automated Data Transmission</h3>
             <ul>
-                <li>Premium subscription payments are processed through <strong>Google Play Billing</strong></li>
-                <li>We do not store or have access to your payment information</li>
-                <li>Google Play's privacy policy governs payment data: <a href="https://policies.google.com/privacy" target="_blank">https://policies.google.com/privacy</a></li>
-            </ul>
-
-            <h3>5.4 No Analytics or Advertising</h3>
-            <ul>
-                <li>We do not integrate any third-party analytics services</li>
-                <li>We do not display advertisements</li>
-                <li>We do not track your usage or behavior</li>
+                <li><strong>Purchase verification:</strong> Purchase tokens are transmitted to our server and Google Play for validation</li>
+                <li><strong>Crash reports:</strong> Anonymous crash data is sent to Firebase Crashlytics</li>
             </ul>
         </div>
 
         <div class="section">
-            <h2>6. Your Data Rights and Controls</h2>
+            <h2>7. Your Data Rights and Controls</h2>
             <p>You have complete control over your data:</p>
 
-            <h3>6.1 Access and Modification</h3>
+            <h3>7.1 Access and Modification</h3>
             <ul>
                 <li>Access all your rules, logs, and settings within the app at any time</li>
                 <li>Modify or delete rules whenever you choose</li>
+                <li>View all activity logs in the Activity Log screen</li>
             </ul>
 
-            <h3>6.2 Data Deletion</h3>
+            <h3>7.2 Data Deletion</h3>
             <ul>
                 <li><strong>Delete individual logs:</strong> Tap on any log entry and select delete</li>
                 <li><strong>Clear all logs:</strong> Go to Settings → Advanced → Clear Logs</li>
                 <li><strong>Delete app data:</strong> Uninstalling the app removes all locally stored data from your device</li>
+                <li><strong>Delete backup files:</strong> Manually delete backup files from your device storage</li>
             </ul>
 
-            <h3>6.3 Permission Management</h3>
+            <h3>7.3 Data Export</h3>
+            <ul>
+                <li><strong>Export rules:</strong> Use the backup feature to export your rule configurations</li>
+                <li><strong>Backup format:</strong> Backup files are in JSON format and can be restored anytime</li>
+                <li><strong>Transfer data:</strong> Backup files can be manually transferred between devices</li>
+            </ul>
+
+            <h3>7.4 Purchase Data</h3>
+            <ul>
+                <li>Purchase verification data is temporary and not stored permanently on our servers</li>
+                <li>Your Google Play purchase history is managed by Google and can be accessed through Google Play</li>
+                <li>You can request purchase information from Google Play</li>
+            </ul>
+
+            <h3>7.5 Crash Data</h3>
+            <ul>
+                <li>Crash data is anonymous and cannot be linked to you</li>
+                <li>No personally identifiable information is included in crash reports</li>
+                <li>Crash data is automatically retained for 90 days on Firebase servers, then deleted</li>
+            </ul>
+
+            <h3>7.6 Permission Management</h3>
             <ul>
                 <li>You can revoke app permissions at any time through your device's Settings → Apps → SMS Forwarder → Permissions</li>
                 <li><strong>Note:</strong> Revoking essential permissions (SMS, Contacts, Phone) will limit app functionality</li>
@@ -349,27 +481,68 @@
         </div>
 
         <div class="section">
-            <h2>7. Data Retention</h2>
-            <ul>
-                <li><strong>SMS Content:</strong> Not retained; processed in real-time and forwarded based on rules</li>
-                <li><strong>Forwarding Logs:</strong>
-                    <ul>
-                        <li>Free: 7 days (auto-deleted after)</li>
-                        <li>Premium: 90 days (auto-deleted after)</li>
-                    </ul>
-                </li>
-                <li><strong>Rule Configurations:</strong> Retained until you delete them or uninstall the app</li>
-                <li><strong>App Settings:</strong> Retained until you uninstall the app</li>
-            </ul>
+            <h2>8. Data Retention</h2>
+            
+            <table>
+                <thead>
+                    <tr>
+                        <th>Data Type</th>
+                        <th>Storage Location</th>
+                        <th>Retention Period</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>SMS Content</td>
+                        <td>Not retained</td>
+                        <td>Processed in real-time only</td>
+                    </tr>
+                    <tr>
+                        <td>Rule Configurations</td>
+                        <td>Device local storage</td>
+                        <td>Until deleted or app uninstalled</td>
+                    </tr>
+                    <tr>
+                        <td>App Settings</td>
+                        <td>Device local storage</td>
+                        <td>Until app uninstalled</td>
+                    </tr>
+                    <tr>
+                        <td>Forwarding Logs (Free)</td>
+                        <td>Device local storage</td>
+                        <td>7 days (auto-deleted)</td>
+                    </tr>
+                    <tr>
+                        <td>Forwarding Logs (Premium)</td>
+                        <td>Device local storage</td>
+                        <td>90 days (auto-deleted)</td>
+                    </tr>
+                    <tr>
+                        <td>Backup Files</td>
+                        <td>Device local/external storage</td>
+                        <td>Until manually deleted by user</td>
+                    </tr>
+                    <tr>
+                        <td>Purchase Verification</td>
+                        <td>Our server (temporary)</td>
+                        <td>Not stored permanently</td>
+                    </tr>
+                    <tr>
+                        <td>Crash Reports</td>
+                        <td>Firebase Crashlytics</td>
+                        <td>90 days (auto-deleted)</td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
 
         <div class="section">
-            <h2>8. Children's Privacy</h2>
+            <h2>9. Children's Privacy</h2>
             <p>SMS Forwarder is not intended for use by individuals under the age of 13. We do not knowingly collect personal information from children under 13. If you are a parent or guardian and believe your child has provided us with personal information, please contact us, and we will delete such information.</p>
         </div>
 
         <div class="section">
-            <h2>9. Permissions Explained</h2>
+            <h2>10. Permissions Explained</h2>
             <p>SMS Forwarder requires the following Android permissions:</p>
             
             <table>
@@ -403,8 +576,8 @@
                     </tr>
                     <tr>
                         <td>INTERNET</td>
-                        <td>Send email forwards and check roaming status</td>
-                        <td>Yes (if using email forwarding)</td>
+                        <td>Send email forwards, verify purchases, and send crash reports</td>
+                        <td>Yes</td>
                     </tr>
                     <tr>
                         <td>REQUEST_IGNORE_BATTERY_OPTIMIZATIONS</td>
@@ -421,7 +594,7 @@
         </div>
 
         <div class="section">
-            <h2>10. Changes to This Privacy Policy</h2>
+            <h2>11. Changes to This Privacy Policy</h2>
             <p>We may update this Privacy Policy from time to time to reflect changes in our practices or for legal, operational, or regulatory reasons. We will notify you of any material changes by:</p>
             <ul>
                 <li>Updating the "Last Updated" date at the top of this policy</li>
@@ -431,33 +604,44 @@
         </div>
 
         <div class="section">
-            <h2>11. International Users and Data Transfers</h2>
-            <p>SMS Forwarder stores all data locally on your device. If you use email forwarding, your messages may be transmitted through email servers that could be located in different countries depending on your email provider. We recommend reviewing your email provider's privacy policy for information about international data transfers.</p>
+            <h2>12. International Users and Data Transfers</h2>
+            <p>SMS Forwarder stores all data locally on your device. Data may be transmitted internationally in the following scenarios:</p>
+            <ul>
+                <li><strong>Email forwarding:</strong> Your messages may be transmitted through email servers that could be located in different countries depending on your email provider</li>
+                <li><strong>Purchase verification:</strong> Purchase tokens are sent to our server and Google Play servers for validation</li>
+                <li><strong>Crash reporting:</strong> Anonymous crash data is sent to Google's Firebase servers, which may be located in different countries</li>
+            </ul>
+            <p>We recommend reviewing Google's and your email provider's privacy policies for information about international data transfers.</p>
         </div>
 
         <div class="section">
-            <h2>12. Compliance with Laws</h2>
+            <h2>13. Compliance with Laws</h2>
             <p>We comply with applicable data protection laws, including:</p>
             <ul>
-                <li>General Data Protection Regulation (GDPR) for users in the European Economic Area</li>
-                <li>California Consumer Privacy Act (CCPA) for users in California</li>
-                <li>Information Technology Act, 2000 for users in India</li>
+                <li><strong>GDPR:</strong> General Data Protection Regulation for users in the European Economic Area</li>
+                <li><strong>CCPA:</strong> California Consumer Privacy Act for users in California</li>
+                <li><strong>IT Act, 2000:</strong> Information Technology Act for users in India</li>
                 <li>Other applicable regional privacy regulations</li>
             </ul>
+            <p><strong>GDPR Basis for Processing:</strong> Crash reporting falls under legitimate interest as it is necessary for app functionality and does not involve personal data.</p>
         </div>
 
         <div class="section">
-            <h2>13. Your Consent</h2>
+            <h2>14. Your Consent</h2>
             <p>By using SMS Forwarder, you consent to:</p>
             <ul>
-                <li>The collection and use of information as described in this Privacy Policy</li>
+                <li>The collection and use of SMS content solely for forwarding as per your rules</li>
+                <li>Local storage of your rule configurations and activity logs</li>
+                <li>Network transmission when forwarding SMS via email (if configured)</li>
+                <li><strong>Creating and managing backup files on your device storage</strong></li>
+                <li><strong>Verification of in-app purchases with our secure server and Google Play</strong></li>
+                <li><strong>Anonymous crash reporting via Firebase Crashlytics for app improvement</strong></li>
                 <li>SMS forwarding charges from your mobile carrier (when using SMS forwarding)</li>
-                <li>Email transmission through your configured email providers</li>
             </ul>
         </div>
 
         <div class="section">
-            <h2>14. Contact Us</h2>
+            <h2>15. Contact Us</h2>
             <p>If you have any questions, concerns, or requests regarding this Privacy Policy or our data practices, please contact us:</p>
             <div class="info-box">
                 <p><strong>Email:</strong> <a href="mailto:themeink@gmail.com">themeink@gmail.com</a></p>
@@ -472,7 +656,7 @@
         </div>
 
         <footer>
-            <p>&copy; 2025 Themeink. All rights reserved.</p>
+            <p>&copy; 2026 Themeink. All rights reserved.</p>
             <p>SMS Forwarder - Privacy Policy</p>
         </footer>
     </div>
